@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>5F</title>
+  <link rel="stylesheet" href="style2.css">
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <link href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" rel="stylesheet" type="text/css">
+  <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-database.js"></script>
+  <script>
+    let firebaseConfig = {
+      apiKey: "AIzaSyAekTFnpKDM10_TPftZ2vn4-7l9uTO2HrU",
+      authDomain: "indicatorapp-52db4.firebaseapp.com",
+      projectId: "indicatorapp-52db4",
+      storageBucket: "indicatorapp-52db4.appspot.com",
+      messagingSenderId: "392314365353",
+      appId: "1:392314365353:web:d449397c2634837eea90b8"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+  </script>
+</head>
+
+<body>
+
+  <body>
+    <div class="split-box left-box">
+      <header>
+        <div class="openbtn"><span></span><span></span><span></span></div>
+        <nav id="g-nav">
+          <ul>
+            <li><a href="index.html">2F</a></li>
+            <li><a href="index2.html">3F</a></li>
+            <li><a href="index3.html">4F</a></li>
+            <li><a href="index4.html">5F</a></li>
+          </ul>
+        </nav>
+
+        <div class="btn-box">
+          <a href="#" id="501" class="btn_02">501</a>
+          <a href="#" id="502" class="btn_02">502</a>
+          <a href="#" id="503" class="btn_02">503</a>
+          <a href="#" id="504" class="btn_02">504</a>
+          <a href="#" id="505" class="btn_02">505</a>
+          <a href="#" id="506" class="btn_02">506</a>
+          <a href="#" id="507" class="btn_02">507</a>
+          <a href="#" id="508" class="btn_02">508</a>
+        </div>
+
+
+        <div class="floorBox">
+          <div id="section501"><img class="hideMapA" src="img/b01.png" alt="">
+          </div>
+          <div id="section502"><img class="hideMapB" src="img/b02.png" alt="">
+          </div>
+          <div id="section503"><img class="hideMapC" src="img/b03.png" alt="">
+          </div>
+          <div id="section504"><img class="hideMapD" src="img/b02.png" alt="">
+          </div>
+          <div id="section505"><img class="hideMapE" src="img/b03.png" alt="">
+          </div>
+          <div id="section506"><img class="hideMapF" src="img/b04.png" alt="">
+          </div>
+          <div id="section507"><img class="hideMapG" src="img/b05.png" alt="">
+          </div>
+          <div id="section508"><img class="hideMapH" src="img/b06.png" alt="">
+          </div>
+
+              </div>
+              <div id="actionButton">
+                <a id="save" href="#" class="btn_02">SAVE</a>
+                <a id="clear" href="#" class="btn_02">CLEAR</a>
+                <a id="reload" href="#" class="btn_02">RELOAD</a>
+              </div>
+              </header>
+              </div>
+              <div class="split-box right-box">
+                <section>
+                  <ul id="form">
+                    <li id="nameBox">
+                      <input type="text" id="name" placeholder="What'sUrName">
+                    </li>
+                    <li id="textbox">
+                      <textarea name="" id="text" cols="30" rows="10"></textarea>
+                    </li>
+                    <li>
+                      <button id="send">Send</button>
+                    </li>
+                    <ul id="output"></ul>
+                  </ul>
+                </section>
+              </div>
+              </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.2.2/marked.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    const db = firebase.firestore().collection('floor').doc('floor5');
+    const chatdata = firebase.firestore().collection('chat');
+    //  部屋情報を受け取る
+    var roomfive = [];
+    // リロードで必要なデータが入った新しい配列
+    var dataArray = [];
+
+    // Humberger
+    $(function () {
+      $('.nav_toggle').on('click', function () {
+        $('.nav_toggle, .nav').toggleClass('show');
+      });
+    });
+
+    // Humberger
+    $(".openbtn").click(function () {//ボタンがクリックされたら
+      $(this).toggleClass('active');//ボタン自身に activeクラスを付与し
+      $("#g-nav").toggleClass('panelactive');//ナビゲーションにpanelactiveクラスを付与
+    });
+
+    $("#g-nav a").click(function () {//ナビゲーションのリンクがクリックされたら
+      $(".openbtn").removeClass('active');//ボタンの activeクラスを除去し
+      $("#g-nav").removeClass('panelactive');//ナビゲーションのpanelactiveクラスも除去
+    });
+
+
+    // クリックで画像を表示し配列roomfiveへpush
+    $('#section501').toggle();
+    $(function () {
+      $("#501").click(function () {
+        $("#section501").toggle();
+        roomfive.push('501');
+      });
+    });
+
+    $("#section502").toggle();
+    $(function () {
+      $("#502").click(function () {
+        $("#section502").toggle();
+        roomfive.push('502');
+      });
+    });
+
+    $("#section503").toggle();
+    $(function () {
+      $("#503").click(function () {
+        $("#section503").toggle();
+        roomfive.push('503');
+      });
+    });
+
+    $("#section504").toggle();
+    $(function () {
+      $("#504").click(function () {
+        $("#section504").toggle();
+        roomfive.push('504');
+      });
+    });
+
+
+    $("#section505").toggle();
+    $(function () {
+      $("#505").click(function () {
+        $("#section505").toggle();
+        roomfive.push('505');
+      });
+    });
+
+    $("#section506").toggle();
+    $(function () {
+      $("#506").click(function () {
+        $("#section506").toggle();
+        roomfive.push('506');
+      });
+    });
+
+    $("#section507").toggle();
+    $(function () {
+      $("#507").click(function () {
+        $("#section507").toggle();
+        roomfive.push('507');
+      });
+    });
+
+    $("#section508").toggle();
+    $(function () {
+      $("#508").click(function () {
+        $("#section508").toggle();
+        roomfive.push('508');
+      });
+    });
+
+    //1.Save クリックイベント
+    //1.Save クリックイベント
+    $('#save').on('click', function () {
+      db.update({ yonkai: roomfive });
+    });
+
+    //2.clear クリックイベント
+    $('#clear').on('click', function () {
+      roomfive = [];
+      db.update({ yonkai: roomfive });
+      $('.hideMapA').hide();
+      $('.hideMapB').hide();
+      $('.hideMapC').hide();
+      $('.hideMapD').hide();
+      $('.hideMapE').hide();
+      $('.hideMapF').hide();
+      $('.hideMapG').hide();
+      $('.hideMapH').hide();
+    });
+
+    //3.ページ読み込み：保存データ取得表示
+    // リロード
+    $('#reload').click(function () {
+      location.reload();
+    });
+    // 空の文字列で上書き
+
+    if (localStorage.getItem('roomfive')) { // 値が保存されていれば 
+      const text = localStorage.getItem('roomfive'); // データを取得
+      var result19 = text.includes('501');
+      if (result19 == true) {
+        $("#section501").show();
+      };
+      var result20 = text.includes('502');
+      if (result20 == true) {
+        $("#section502").show();
+      };
+      var result21 = text.includes('503');
+      if (result21 == true) {
+        $("#section503").show();
+      };
+      var result22 = text.includes('504');
+      if (result22 == true) {
+        $("#section504").show();
+      };
+      var result23 = text.includes('505');
+      if (result23 == true) {
+        $("#section505").show();
+      };
+      var result24 = text.includes('506');
+      if (result24 == true) {
+        $("#section506").show();
+      };
+      var result25 = text.includes('507');
+      if (result25 == true) {
+        $("#section507").show();
+      };
+      var result26 = text.includes('508');
+      if (result26 == true) {
+        $("#section508").show();
+      };
+    };
+
+
+    // 日時をいい感じの形式にする関数
+    function convertFromFirestoreTimestampToDatetime(timestamp) {
+      const _d = timestamp ? new Date(timestamp * 1000) : new Date();
+      const Y = _d.getFullYear();
+      const m = (_d.getMonth() + 1).toString().padStart(2, '0');
+      const d = _d.getDate().toString().padStart(2, '0');
+      const H = _d.getHours().toString().padStart(2, '0');
+      const i = _d.getMinutes().toString().padStart(2, '0');
+      const s = _d.getSeconds().toString().padStart(2, '0');
+      return `${Y}/${m}/${d} ${H}:${i}:${s}`;
+    }
+
+
+    $('#send').on('click', function () {
+      chatdata.add({
+        name: $('#name').val(),
+        // .valデータ取得
+        text: $('#text').val(),
+        time: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      $('#text').val('');
+    });
+    // .then(doc => {
+    //       this.memoRef.doc(doc.id).update({
+    //         id: doc.id
+    //       })
+    //     })
+
+    chatdata.orderBy('time', 'desc').onSnapshot(function (querySnapshot) {
+      // console.log(queryShot.docs);
+      const dataArray = [];
+      querySnapshot.docs.forEach(function (doc) {
+        const data = {
+          id: doc.id,
+          data: doc.data(),
+        }
+        dataArray.push(data);
+      });
+      console.log(dataArray);
+
+      const tagArray = [];
+      dataArray.forEach(function (data) {
+        tagArray.push(`
+      <li id=${data.id}>
+        <p>${data.data.name}</p>
+        <p>${data.data.text}</p>
+        <p>${convertFromFirestoreTimestampToDatetime(data.data.time.seconds)}</p>
+        </li>
+        `)
+      })
+      $('#output').html(tagArray);
+    });
+
+  </script>
+</body>
+
+</html>

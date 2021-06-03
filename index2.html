@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>3F</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <link href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" rel="stylesheet" type="text/css">
+  <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-database.js"></script>
+  <script>
+    let firebaseConfig = {
+      apiKey: "AIzaSyAekTFnpKDM10_TPftZ2vn4-7l9uTO2HrU",
+      authDomain: "indicatorapp-52db4.firebaseapp.com",
+      projectId: "indicatorapp-52db4",
+      storageBucket: "indicatorapp-52db4.appspot.com",
+      messagingSenderId: "392314365353",
+      appId: "1:392314365353:web:d449397c2634837eea90b8"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+  </script>
+</head>
+
+<body>
+
+  <body>
+    <div class="split-box left-box">
+      <header>
+        <div class="openbtn"><span></span><span></span><span></span></div>
+        <nav id="g-nav">
+          <ul>
+            <li><a href="index.html">2F</a></li>
+            <li><a href="index2.html">3F</a></li>
+            <li><a href="index3.html">4F</a></li>
+            <li><a href="index4.html">5F</a></li>
+          </ul>
+        </nav>
+
+        <div class="btn-box">
+          <a href="#" id="301" class="btn_02">301</a>
+          <a href="#" id="302" class="btn_02">302</a>
+          <a href="#" id="303" class="btn_02">303</a>
+          <a href="#" id="304" class="btn_02">304</a>
+          <a href="#" id="305" class="btn_02">305</a>
+        </div>
+
+
+        <div class="floorBox">
+          <div id="section301"><img class="hideMapA" src="img/a1.png" alt="">
+          </div>
+          <div id="section302"><img class="hideMapB" src="img/a2.png" alt="">
+          </div>
+          <div id="section303"><img class="hideMapC" src="img/a3.png" alt="">
+          </div>
+          <div id="section304"><img class="hideMapD" src="img/a4.png" alt="">
+          </div>
+          <div id="section305"><img class="hideMapE" src="img/a5.png" alt="">
+          </div>'
+
+        </div>
+        <div id="actionButton">
+          <a id="save" href="#" class="btn_02">SAVE</a>
+          <a id="clear" href="#" class="btn_02">CLEAR</a>
+          <a id="reload" href="#" class="btn_02">RELOAD</a>
+        </div>
+      </header>
+    </div>
+    <div class="split-box right-box">
+      <section>
+
+        <ul id="form">
+          <li id="nameBox">
+            <input type="text" id="name" placeholder="What'sUrName">
+          </li>
+          <li id="textbox">
+            <textarea name="" id="text" cols="30" rows="10"></textarea>
+          </li>
+          <li>
+            <button id="send">Send</button>
+          </li>
+          <ul id="output"></ul>
+        </ul>
+      </section>
+    </div>
+  </body>
+
+
+  <footer>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.2.2/marked.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    const db = firebase.firestore().collection('floor').doc('floor3');
+    const chatdata = firebase.firestore().collection('chat');
+    //  部屋情報を受け取る
+    var roomthree = [];
+    // リロードで必要なデータが入った新しい配列
+    var dataArray = [];
+
+    // Humberger
+    $(function () {
+      $('.nav_toggle').on('click', function () {
+        $('.nav_toggle, .nav').toggleClass('show');
+      });
+    });
+
+    // Humberger
+    $(".openbtn").click(function () {//ボタンがクリックされたら
+      $(this).toggleClass('active');//ボタン自身に activeクラスを付与し
+      $("#g-nav").toggleClass('panelactive');//ナビゲーションにpanelactiveクラスを付与
+    });
+
+    $("#g-nav a").click(function () {//ナビゲーションのリンクがクリックされたら
+      $(".openbtn").removeClass('active');//ボタンの activeクラスを除去し
+      $("#g-nav").removeClass('panelactive');//ナビゲーションのpanelactiveクラスも除去
+    });
+
+
+    // クリックで画像を表示し配列roomthreeへpush
+    $('#section301').toggle();
+    $(function () {
+      $("#301").click(function () {
+        $("#section301").toggle();
+        roomthree.push('301');
+      });
+    });
+
+    $("#section302").toggle();
+    $(function () {
+      $("#302").click(function () {
+        $("#section302").toggle();
+        roomthree.push('302');
+      });
+    });
+
+    $("#section303").toggle();
+    $(function () {
+      $("#303").click(function () {
+        $("#section303").toggle();
+        roomthree.push('303');
+      });
+    });
+
+    $("#section304").toggle();
+    $(function () {
+      $("#304").click(function () {
+        $("#section304").toggle();
+        roomthree.push('304');
+      });
+    });
+
+
+    $("#section305").toggle();
+    $(function () {
+      $("#305").click(function () {
+        $("#section305").toggle();
+        roomthree.push('305');
+      });
+    });
+
+    //1.Save クリックイベント
+    $('#save').on('click', function () {
+      db.update({ sankai: roomthree });
+    });
+
+
+    //2.clear クリックイベント
+
+    $('#clear').on('click', function () {
+      roomthree = [];
+      db.update({ sankai: roomthree });
+      $("#section301").hide();
+      $("#section302").hide();
+      $("#section303").hide();
+      $("#section304").hide();
+      $("#section305").hide();
+    });
+
+
+    // ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+
+
+    // 空の文字列で上書き
+    //3.ページ読み込み：保存データ取得表示
+
+    // リロード
+    $('#reload').click(function () {
+      db.onSnapshot(function (querySnapshot) {
+        // console.log(querySnapshot);
+        db.onSnapshot(function (doc) {
+          const data = {
+            sankai: doc.data()
+          }
+          dataArray.push(data);
+        });
+
+        $(function () {
+          // 文字列を比較する
+          var result6 = dataArray.includes('301');
+          if (result6 == true) {
+            $("#section301").show();
+          };
+          var result7 = dataArray.includes('302');
+          if (result7 == true) {
+            $("#section302").show();
+          };
+          var result8 = dataArray.includes('303');
+          if (result8 == true) {
+            $("#section303").show();
+          };
+          var result9 = dataArray.includes('304');
+          if (result9 == true) {
+            $("#section304").show();
+          };
+          var result10 = dataArray.includes('305');
+          if (result10 == true) {
+            $("#section305").show();
+          };
+        });
+      });
+    });
+
+    // 日時をいい感じの形式にする関数
+    function convertFromFirestoreTimestampToDatetime(timestamp) {
+      const _d = timestamp ? new Date(timestamp * 1000) : new Date();
+      const Y = _d.getFullYear();
+      const m = (_d.getMonth() + 1).toString().padStart(2, '0');
+      const d = _d.getDate().toString().padStart(2, '0');
+      const H = _d.getHours().toString().padStart(2, '0');
+      const i = _d.getMinutes().toString().padStart(2, '0');
+      const s = _d.getSeconds().toString().padStart(2, '0');
+      return `${Y}/${m}/${d} ${H}:${i}:${s}`;
+    }
+
+
+    $('#send').on('click', function () {
+      chatdata.add({
+        name: $('#name').val(),
+        // .valデータ取得
+        text: $('#text').val(),
+        time: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      $('#text').val('');
+    });
+    // .then(doc => {
+    //       this.memoRef.doc(doc.id).update({
+    //         id: doc.id
+    //       })
+    //     })
+
+    chatdata.orderBy('time', 'desc').onSnapshot(function (querySnapshot) {
+      // console.log(queryShot.docs);
+      const dataArray = [];
+      querySnapshot.docs.forEach(function (doc) {
+        const data = {
+          id: doc.id,
+          data: doc.data(),
+        }
+        dataArray.push(data);
+      });
+      console.log(dataArray);
+
+      const tagArray = [];
+      dataArray.forEach(function (data) {
+        tagArray.push(`
+      <li id=${data.id}>
+        <p>${data.data.name}</p>
+        <p>${data.data.text}</p>
+        <p>${convertFromFirestoreTimestampToDatetime(data.data.time.seconds)}</p>
+        </li>
+        `)
+      })
+      $('#output').html(tagArray);
+    });
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,380 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: Courier New;
+}
+body,html{
+  width: 100%;
+  height: 100%;
+}
+.split-box{
+	position:absolute;
+	height:100%;
+}
+ 
+.right-box {
+	right:0;
+  width:30%;
+	overflow-y:scroll;
+}
+
+header{
+  background-image: url(img/BH_4F.png);
+  background-size: 60%;
+  background-repeat:no-repeat;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+header .floorBox{
+align-items: flex-start;
+}
+
+.right-box {
+  background-color: rgb(0, 0, 0);
+  color: azure;
+}
+
+    /*========= Floor ===============*/
+.left-box {
+  width:70%;
+	left:0;
+}
+.floorBox{
+    text-align: center;
+}
+
+.floorBox img{
+    width: 100%;
+}
+
+.floorBox .hideMapA{
+    width: 76px;
+    height: 97px;
+    position: absolute;
+    top: 359px;
+    left: 236px;
+    opacity: 0.9;
+    filter: grayscale(110%);
+  }
+
+.floorBox .hideMapB{
+   width: 49px;
+    height: 95px;
+    position: absolute;
+    top: 330px;
+    left: 290px;
+    opacity: 0.9;
+    filter: grayscale(110%);}
+
+.floorBox .hideMapC{
+    width: 49px;
+    height: 95px;
+    position: absolute;
+    top: 330px;
+    left: 344px;
+    opacity: 0.9;
+    filter: grayscale(110%);}
+
+.floorBox .hideMapD{
+   width: 49px;
+    height: 95px;
+    position: absolute;
+    top: 330px;
+    left: 395px;
+    opacity: 0.9;
+    filter: grayscale(110%);}
+
+.floorBox .hideMapE{
+    width: 49px;
+    height: 95px;
+    position: absolute;
+    top: 330px;
+    left: 448px;
+    opacity: 0.9;
+    filter: grayscale(110%);
+  }
+
+  .floorBox .hideMapF{
+    width: 49px;
+    height: 95px;
+    position: absolute;
+    top: 330px;
+    left: 622px;
+    opacity: 0.9;
+    filter: grayscale(110%);
+  }
+
+  .floorBox .hideMapG{
+    width: 103px;
+    height: 95px;
+    position: absolute;
+    top: 330px;
+    left: 674px;
+    opacity: 0.9;
+    filter: grayscale(110%);
+  }
+
+  .floorBox .hideMapH{
+    width: 80px;
+    height: 71px;
+    position: absolute;
+    top: 384px;
+    left: 698px;
+    opacity: 0.9;
+    filter: grayscale(110%);
+  }
+
+
+#actionButton {
+  max-width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  display: flex;
+  font-family: Courier New;
+  align-items: flex-end;
+   position: absolute;
+  bottom:180px;
+}
+.btn-box{
+  display: flex;
+  align-items:flex-start;
+  position:absolute;
+  top:190px;
+  margin: 0px 5px;
+}
+
+/* ボタンエフェクト */
+a.btn_02 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #d3d2d2;
+  box-sizing: border-box;
+  width: 80px;
+  height: 60px;
+  color: #000000;
+  font-size: 19px;
+  text-align: center;
+  transition-duration: 0.2s;
+  margin: 0 15px 40px 15px;
+}
+
+a.btn_02:hover {
+  background: #b4b4b4;
+  color: #fff;
+}
+
+a.btn_02:before {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 0 7px 8px;
+  border-color: transparent transparent transparent #050505;
+  top: 50%;
+  left: 6%;
+  margin-top: -7px;
+}
+a.btn_02:hover:before {
+  border-color: transparent transparent transparent #fff;
+}
+
+li {
+    list-style:none;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+    /*========= chat ===============*/
+ul{
+justify-content: center;
+height: auto;
+width: 100%;
+}
+
+#textbox{
+margin: 15px 0px;
+}
+#text {
+  height: 70px;
+  width: 200px;
+}
+
+#send{
+    margin: 0px 10px;
+    width:80px;
+}
+
+#input:hover {
+  background: #b4b4b4;
+  color: #fff;
+}
+
+#input:before {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 0 7px 8px;
+  border-color: transparent transparent transparent #050505;
+  position: absolute;
+  top: 50%;
+  left: 6%;
+  margin-top: -7px;
+}
+#input:hover:before {
+  border-color: transparent transparent transparent #fff;
+}
+ 
+#output{
+ justify-content: center;
+  margin: 10px 20px;
+}
+
+
+
+/*========= hamburger ===============*/
+ #g-nav{
+    /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
+    position:fixed;
+    z-index: 999;
+    /*ナビのスタート位置と形状*/
+	top:-120%;
+    right:0;
+	width:100%;
+    height: 100vh;/*ナビの高さ*/
+	background:#c0c0c0;
+    /*動き*/
+	transition: all 0.4s;
+  opacity : 0.8;
+}
+
+/*アクティブクラスがついたら位置を0に*/
+#g-nav.panelactive{
+    top: 0;
+}
+
+/*ナビゲーションの縦スクロール*/
+#g-nav.panelactive #g-nav-list{
+    /*ナビの数が増えた場合縦スクロール*/
+    position: fixed;
+    z-index: 999; 
+    width: 100%;
+    height: 100vh;/*表示する高さ*/
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/*ナビゲーション*/
+#g-nav ul {
+    /*ナビゲーション天地中央揃え*/
+    position: absolute;
+    z-index: 999;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+/*リストのレイアウト設定*/
+#g-nav li{
+	list-style: none;
+    text-align: center; 
+}
+
+#g-nav li a{
+	color: #333;
+	text-decoration: none;
+	padding:10px;
+	display: block;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-weight: bold;
+  font-size: 30px;
+}
+.openbtn{
+	position:fixed;
+  justify-content: flex-start;
+  z-index: 9999;/*ボタンを最前面に*/
+	top:10px;
+	left: 10px;
+	cursor: pointer;
+  width: 50px;
+  height:50px;
+}
+	
+/*×に変化*/	
+.openbtn span{
+    display: inline-block;
+    transition: all .4s;
+    position: absolute;
+    left: 14px;
+    height: 3px;
+    border-radius: 2px;
+	  background-color: #666;
+  	width: 45%;
+  }
+
+.openbtn span:nth-of-type(1) {
+	top:15px;	
+}
+
+.openbtn span:nth-of-type(2) {
+	top:23px;
+}
+
+.openbtn span:nth-of-type(3) {
+	top:31px;
+}
+
+.openbtn.active span:nth-of-type(1) {
+    top: 18px;
+    left: 18px;
+    transform: translateY(6px) rotate(-45deg);
+    width: 30%;
+}
+
+.openbtn.active span:nth-of-type(2) {
+	opacity: 0;
+}
+
+.openbtn.active span:nth-of-type(3){
+    top: 30px;
+    left: 18px;
+    transform: translateY(-6px) rotate(45deg);
+    width: 30%;
+}
+/*幅768px以上に適用されるCSS（タブレットサイズ以上・幅990px以上にも適用される）*/
+@media screen and (min-width:768px){
+  body{
+    display: flex;
+  }
+  .split-box left-box{
+    width: 70%;
+    height: 100vh;
+  }
+  .split-box right-box{
+    width: 30%;
+    height: 100vh;
+    overflow-y: scroll;
+  }
+}
+@media screen and (max-width:600px) { 
+	.split-box {
+		position:relative;
+		width:100%;
+		height:auto;
+ 
+	}
+}

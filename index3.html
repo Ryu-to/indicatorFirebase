@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Sample</title>
+  <link rel="stylesheet" href="style2.css">
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <link href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" rel="stylesheet" type="text/css">
+  <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-database.js"></script>
+  <script>
+    let firebaseConfig = {
+      apiKey: "AIzaSyAekTFnpKDM10_TPftZ2vn4-7l9uTO2HrU",
+      authDomain: "indicatorapp-52db4.firebaseapp.com",
+      projectId: "indicatorapp-52db4",
+      storageBucket: "indicatorapp-52db4.appspot.com",
+      messagingSenderId: "392314365353",
+      appId: "1:392314365353:web:d449397c2634837eea90b8"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+  </script>
+</head>
+
+<body>
+
+  <body>
+    <div class="split-box left-box">
+      <header>
+        <div class="openbtn"><span></span><span></span><span></span></div>
+        <nav id="g-nav">
+          <ul>
+            <li><a href="index.html">2F</a></li>
+            <li><a href="index2.html">3F</a></li>
+            <li><a href="index3.html">4F</a></li>
+            <li><a href="index4.html">5F</a></li>
+          </ul>
+        </nav>
+
+        <div class="btn-box">
+          <a href="#" id="401" class="btn_02">401</a>
+          <a href="#" id="402" class="btn_02">402</a>
+          <a href="#" id="403" class="btn_02">403</a>
+          <a href="#" id="404" class="btn_02">404</a>
+          <a href="#" id="405" class="btn_02">405</a>
+          <a href="#" id="406" class="btn_02">406</a>
+          <a href="#" id="407" class="btn_02">407</a>
+          <a href="#" id="408" class="btn_02">408</a>
+        </div>
+
+
+        <div class="floorBox">
+          <div id="section401"><img class="hideMapA" src="img/b01.png" alt="">
+          </div>
+          <div id="section402"><img class="hideMapB" src="img/b02.png" alt="">
+          </div>
+          <div id="section403"><img class="hideMapC" src="img/b03.png" alt="">
+          </div>
+          <div id="section404"><img class="hideMapD" src="img/b02.png" alt="">
+          </div>
+          <div id="section405"><img class="hideMapE" src="img/b03.png" alt="">
+          </div>
+          <div id="section406"><img class="hideMapF" src="img/b04.png" alt="">
+          </div>
+          <div id="section407"><img class="hideMapG" src="img/b05.png" alt="">
+          </div>
+          <div id="section408"><img class="hideMapH" src="img/b06.png" alt="">
+          </div>
+
+        </div>
+        <div id="actionButton">
+          <a id="save" href="#" class="btn_02">SAVE</a>
+          <a id="clear" href="#" class="btn_02">CLEAR</a>
+          <a id="reload" href="#" class="btn_02">RELOAD</a>
+        </div>
+      </header>
+    </div>
+    <div class="split-box right-box">
+    <section>
+  <ul id="form">
+    <li id="nameBox">
+      <input type="text" id="name" placeholder="What'sUrName">
+    </li>
+    <li id="textbox">
+      <textarea name="" id="text" cols="30" rows="10"></textarea>
+    </li>
+    <li>
+      <button id="send">Send</button>
+    </li>
+    <ul id="output"></ul>
+  </ul>
+  </section>
+  </div>
+</body>
+
+
+<footer>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.2.2/marked.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  const db = firebase.firestore().collection('floor').doc('floor4');
+  const chatdata = firebase.firestore().collection('chat');
+  //  部屋情報を受け取る
+  var roomfour = [];
+  // リロードで必要なデータが入った新しい配列
+  var dataArray = [];
+
+  // Humberger
+  $(function () {
+    $('.nav_toggle').on('click', function () {
+      $('.nav_toggle, .nav').toggleClass('show');
+    });
+  });
+
+  // Humberger
+  $(".openbtn").click(function () {//ボタンがクリックされたら
+    $(this).toggleClass('active');//ボタン自身に activeクラスを付与し
+    $("#g-nav").toggleClass('panelactive');//ナビゲーションにpanelactiveクラスを付与
+  });
+
+  $("#g-nav a").click(function () {//ナビゲーションのリンクがクリックされたら
+    $(".openbtn").removeClass('active');//ボタンの activeクラスを除去し
+    $("#g-nav").removeClass('panelactive');//ナビゲーションのpanelactiveクラスも除去
+  });
+
+
+  // クリックで画像を表示し配列roomfourへpush
+  $('#section401').toggle();
+  $(function () {
+    $("#401").click(function () {
+      $("#section401").toggle();
+      roomfour.push('401');
+    });
+  });
+
+  $("#section402").toggle();
+  $(function () {
+    $("#402").click(function () {
+      $("#section402").toggle();
+      roomfour.push('402');
+    });
+  });
+
+  $("#section403").toggle();
+  $(function () {
+    $("#403").click(function () {
+      $("#section403").toggle();
+      roomfour.push('403');
+    });
+  });
+
+  $("#section404").toggle();
+  $(function () {
+    $("#404").click(function () {
+      $("#section404").toggle();
+      roomfour.push('404');
+    });
+  });
+
+
+  $("#section405").toggle();
+  $(function () {
+    $("#405").click(function () {
+      $("#section405").toggle();
+      roomfour.push('405');
+    });
+  });
+
+  $("#section406").toggle();
+  $(function () {
+    $("#406").click(function () {
+      $("#section406").toggle();
+      roomfour.push('406');
+    });
+  });
+
+  $("#section407").toggle();
+  $(function () {
+    $("#407").click(function () {
+      $("#section407").toggle();
+      roomfour.push('407');
+    });
+  });
+
+  $("#section408").toggle();
+  $(function () {
+    $("#408").click(function () {
+      $("#section408").toggle();
+      roomfour.push('408');
+    });
+  });
+
+  //1.Save クリックイベント
+  //1.Save クリックイベント
+  $('#save').on('click', function () {
+    db.update({ yonkai: roomfour });
+  });
+
+  //2.clear クリックイベント
+  $('#clear').on('click', function () {
+    roomfour = [];
+    db.update({ yonkai: roomfour });
+    $('.hideMapA').hide();
+    $('.hideMapB').hide();
+    $('.hideMapC').hide();
+    $('.hideMapD').hide();
+    $('.hideMapE').hide();
+    $('.hideMapF').hide();
+    $('.hideMapG').hide();
+    $('.hideMapH').hide();
+  });
+
+  //3.ページ読み込み：保存データ取得表示
+  // リロード
+  $('#reload').click(function () {
+    location.reload();
+  });
+  // 空の文字列で上書き
+
+  if (localStorage.getItem('roomfour')) { // 値が保存されていれば 
+    const text = localStorage.getItem('roomfour'); // データを取得
+    var result11 = text.includes('401');
+    if (result11 == true) {
+      $("#section401").show();
+    };
+    var result12 = text.includes('402');
+    if (result12 == true) {
+      $("#section402").show();
+    };
+    var result13 = text.includes('403');
+    if (result13 == true) {
+      $("#section403").show();
+    };
+    var result14 = text.includes('404');
+    if (result14 == true) {
+      $("#section404").show();
+    };
+    var result15 = text.includes('405');
+    if (result15 == true) {
+      $("#section405").show();
+    };
+    var result16 = text.includes('406');
+    if (result16 == true) {
+      $("#section406").show();
+    };
+    var result17 = text.includes('407');
+    if (result17 == true) {
+      $("#section407").show();
+    };
+    var result18 = text.includes('408');
+    if (result18 == true) {
+      $("#section408").show();
+    };
+  };
+
+
+  // 日時をいい感じの形式にする関数
+  function convertFromFirestoreTimestampToDatetime(timestamp) {
+    const _d = timestamp ? new Date(timestamp * 1000) : new Date();
+    const Y = _d.getFullYear();
+    const m = (_d.getMonth() + 1).toString().padStart(2, '0');
+    const d = _d.getDate().toString().padStart(2, '0');
+    const H = _d.getHours().toString().padStart(2, '0');
+    const i = _d.getMinutes().toString().padStart(2, '0');
+    const s = _d.getSeconds().toString().padStart(2, '0');
+    return `${Y}/${m}/${d} ${H}:${i}:${s}`;
+  }
+
+
+  $('#send').on('click', function () {
+    chatdata.add({
+      name: $('#name').val(),
+      // .valデータ取得
+      text: $('#text').val(),
+      time: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    $('#text').val('');
+  });
+  // .then(doc => {
+  //       this.memoRef.doc(doc.id).update({
+  //         id: doc.id
+  //       })
+  //     })
+
+  chatdata.orderBy('time', 'desc').onSnapshot(function (querySnapshot) {
+    // console.log(queryShot.docs);
+    const dataArray = [];
+    querySnapshot.docs.forEach(function (doc) {
+      const data = {
+        id: doc.id,
+        data: doc.data(),
+      }
+      dataArray.push(data);
+    });
+    console.log(dataArray);
+
+    const tagArray = [];
+    dataArray.forEach(function (data) {
+      tagArray.push(`
+      <li id=${data.id}>
+        <p>${data.data.name}</p>
+        <p>${data.data.text}</p>
+        <p>${convertFromFirestoreTimestampToDatetime(data.data.time.seconds)}</p>
+        </li>
+        `)
+    })
+    $('#output').html(tagArray);
+  });
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="sample.css">
+    <title>nav</title>
+</head>
+
+<body>
+    <button class="add" id="add">
+        <i class="fas fa-plus"></i> Add note</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.2.2/marked.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script>
+
+        // 要素を取得する
+        const addBtn = document.getElementById('add')
+        // 作成ボタンのクリックイベントの登録
+        addBtn.addEventListener('click', () => addNewNote())
+
+        function addNewNote(text = '') {
+            // div要素を作成
+            const note = document.createElement('div')
+            // noteクラスを追加
+            note.classList.add('note')
+
+            // メモ帳を追加
+            note.innerHTML = `
+    <div class="tools">
+        <button class="edit"><i class="fas fa-edit"></i></button>
+        <button class="delete"><i class="fas fa-trash-alt"></i></button>
+    </div>
+    <div class="main ${text ? "" : "hidden"}"></div>
+    <textarea class="${text ? "hidden" : ""}"></textarea>
+    `
+
+            // bodyの子要素として追加
+            document.body.appendChild(note)
+        }
+        function addNewNote(text = '') {
+    // div要素を作成
+    // noteクラスを追加
+
+    // メモ帳を追加
+    ...
+
+            // 操作に必要な要素を取得
+            const editBtn = note.querySelector('.edit')
+            const deleteBtn = note.querySelector('.delete')
+            const main = note.querySelector('.main')
+            const textArea = note.querySelector('textarea')
+
+        }
+
+        function addNewNote(text = '') {
+    // div要素を作成
+...
+    `
+    // 操作に必要な要素を取得
+...
+
+    // 削除のクリックイベントの登録
+    deleteBtn.addEventListener('click', () => {
+      deleteNote(note)
+    })
+
+}
+// メモ帳削除
+function deleteNote(note) {
+  // ノートを削除
+  note.remove()
+
+  // ローカルストレージの更新
+  updateLS()
+}
+
+func updateLS() {
+  // 後で実装
+}function addNewNote(text = '') {
+    ...
+
+    // 削除のクリックイベントの登録
+
+    // 編集ボタンのクリックイベント
+    editBtn.addEventListener('click', () => {
+      editNote(main, textArea)
+    })
+...
+}
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+Resources

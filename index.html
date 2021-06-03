@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>2F</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <link href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" rel="stylesheet" type="text/css">
+  <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-database.js"></script>
+  <script>
+    let firebaseConfig = {
+      apiKey: "AIzaSyAekTFnpKDM10_TPftZ2vn4-7l9uTO2HrU",
+      authDomain: "indicatorapp-52db4.firebaseapp.com",
+      projectId: "indicatorapp-52db4",
+      storageBucket: "indicatorapp-52db4.appspot.com",
+      messagingSenderId: "392314365353",
+      appId: "1:392314365353:web:d449397c2634837eea90b8"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+  </script>
+</head>
+
+<body>
+
+  <body>
+    <div class="split-box left-box">
+      <header>
+        <div class="openbtn"><span></span><span></span><span></span></div>
+        <nav id="g-nav">
+          <ul>
+            <li><a href="index.html">2F</a></li>
+            <li><a href="index2.html">3F</a></li>
+            <li><a href="index3.html">4F</a></li>
+            <li><a href="index4.html">5F</a></li>
+          </ul>
+        </nav>
+
+        <div class="btn-box">
+          <a href="#" id="201" class="btn_02">201</a>
+          <a href="#" id="202" class="btn_02">202</a>
+          <a href="#" id="203" class="btn_02">203</a>
+          <a href="#" id="204" class="btn_02">204</a>
+          <a href="#" id="205" class="btn_02">205</a>
+        </div>
+
+
+        <div class="floorBox">
+          <div id="section201"><img class="hideMapA" src="img/a1.png" alt="">
+          </div>
+          <div id="section202"><img class="hideMapB" src="img/a2.png" alt="">
+          </div>
+          <div id="section203"><img class="hideMapC" src="img/a3.png" alt="">
+          </div>
+          <div id="section204"><img class="hideMapD" src="img/a4.png" alt="">
+          </div>
+          <div id="section205"><img class="hideMapE" src="img/a5.png" alt="">
+          </div>'
+
+        </div>
+        <div id="actionButton">
+          <a id="save" href="#" class="btn_02">SAVE</a>
+          <a id="clear" href="#" class="btn_02">CLEAR</a>
+          <a id="reload" href="#" class="btn_02">RELOAD</a>
+        </div>
+      </header>
+    </div>
+    <div class="split-box right-box">
+      <section>
+        <ul id="form">
+          <li id="nameBox">
+            <input type="text" id="name" placeholder="What'sUrName">
+          </li>
+          <li id="textbox">
+            <textarea name="" id="text" cols="30" rows="10"></textarea>
+          </li>
+          <li>
+            <button id="send">Send</button>
+          </li>
+          <ul id="output"></ul>
+        </ul>
+      </section>
+    </div>
+  </body>
+
+
+  <footer>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.2.2/marked.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    const db = firebase.firestore().collection('floor').doc('floor2');
+    const chatdata = firebase.firestore().collection('chat');
+    //  部屋情報を受け取る
+    var room = [];
+    // リロードで必要なデータが入った新しい配列
+    var dataArray = [];
+
+    // Humberger
+    $(function () {
+      $('.nav_toggle').on('click', function () {
+        $('.nav_toggle, .nav').toggleClass('show');
+      });
+    });
+
+    // Humberger
+    $(".openbtn").click(function () {//ボタンがクリックされたら
+      $(this).toggleClass('active');//ボタン自身に activeクラスを付与し
+      $("#g-nav").toggleClass('panelactive');//ナビゲーションにpanelactiveクラスを付与
+    });
+
+    $("#g-nav a").click(function () {//ナビゲーションのリンクがクリックされたら
+      $(".openbtn").removeClass('active');//ボタンの activeクラスを除去し
+      $("#g-nav").removeClass('panelactive');//ナビゲーションのpanelactiveクラスも除去
+    });
+
+
+    // クリックで画像を表示し配列roomへpush
+    $('#section201').toggle();
+    $(function () {
+      $("#201").click(function () {
+        $("#section201").toggle();
+        room.push('201');
+      });
+    });
+
+    $("#section202").toggle();
+    $(function () {
+      $("#202").click(function () {
+        $("#section202").toggle();
+        room.push('202');
+      });
+    });
+
+    $("#section203").toggle();
+    $(function () {
+      $("#203").click(function () {
+        $("#section203").toggle();
+        room.push('203');
+      });
+    });
+
+    $("#section204").toggle();
+    $(function () {
+      $("#204").click(function () {
+        $("#section204").toggle();
+        room.push('204');
+      });
+    });
+
+
+    $("#section205").toggle();
+    $(function () {
+      $("#205").click(function () {
+        $("#section205").toggle();
+        room.push('205');
+      });
+    });
+
+    //1.Save クリックイベント
+    $('#save').on('click', function () {
+      db.update({ nikai: room });
+    });
+
+
+    //2.clear クリックイベント
+
+    $('#clear').on('click', function () {
+      room = [];
+      db.update({ nikai: room });
+      $("#section201").hide();
+      $("#section202").hide();
+      $("#section203").hide();
+      $("#section204").hide();
+      $("#section205").hide();
+    });
+
+
+    // ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+
+
+    // 空の文字列で上書き
+    //3.ページ読み込み：保存データ取得表示
+
+    // リロード
+    $('#reload').click(function () {
+      db.onSnapshot(function (querySnapshot) {
+        // console.log(querySnapshot);
+        db.onSnapshot(function (doc) {
+          const data = {
+            nikai: doc.data()
+          }
+          dataArray.push(data);
+        });
+
+        $(function () {
+          // 文字列を比較する
+          var result1 = dataArray.includes('201');
+          if (result1 == true) {
+            $("#section201").show();
+          };
+          var result2 = dataArray.includes('202');
+          if (result2 == true) {
+            $("#section202").show();
+          };
+          var result3 = dataArray.includes('203');
+          if (result3 == true) {
+            $("#section203").show();
+          };
+          var result4 = dataArray.includes('204');
+          if (result4 == true) {
+            $("#section204").show();
+          };
+          var result5 = dataArray.includes('205');
+          if (result5 == true) {
+            $("#section205").show();
+          };
+        });
+      });
+    });
+
+    // 日時をいい感じの形式にする関数
+    function convertFromFirestoreTimestampToDatetime(timestamp) {
+      const _d = timestamp ? new Date(timestamp * 1000) : new Date();
+      const Y = _d.getFullYear();
+      const m = (_d.getMonth() + 1).toString().padStart(2, '0');
+      const d = _d.getDate().toString().padStart(2, '0');
+      const H = _d.getHours().toString().padStart(2, '0');
+      const i = _d.getMinutes().toString().padStart(2, '0');
+      const s = _d.getSeconds().toString().padStart(2, '0');
+      return `${Y}/${m}/${d} ${H}:${i}:${s}`;
+    }
+
+
+    $('#send').on('click', function () {
+      chatdata.add({
+        name: $('#name').val(),
+        // .valデータ取得
+        text: $('#text').val(),
+        time: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      $('#text').val('');
+    });
+    // .then(doc => {
+    //       this.memoRef.doc(doc.id).update({
+    //         id: doc.id
+    //       })
+    //     })
+
+    chatdata.orderBy('time', 'desc').onSnapshot(function (querySnapshot) {
+      // console.log(queryShot.docs);
+      const dataArray = [];
+      querySnapshot.docs.forEach(function (doc) {
+        const data = {
+          id: doc.id,
+          data: doc.data(),
+        }
+        dataArray.push(data);
+      });
+      console.log(dataArray);
+
+      const tagArray = [];
+      dataArray.forEach(function (data) {
+        tagArray.push(`
+      <li id=${data.id}>
+        <p>${data.data.name}</p>
+        <p>${data.data.text}</p>
+        <p>${convertFromFirestoreTimestampToDatetime(data.data.time.seconds)}</p>
+        </li>
+        `)
+      })
+      $('#output').html(tagArray);
+    });
+
+  </script>
+</body>
+
+</html>
