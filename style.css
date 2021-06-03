@@ -166,7 +166,7 @@ a:hover {
 
     /*========= chat ===============*/
 ul{
-justify-content: center;
+    text-align: center;
 height: auto;
 width: 100%;
 }
